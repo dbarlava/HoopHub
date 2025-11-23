@@ -12,6 +12,7 @@ import pandas as pd
 import mysql.connector
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+import streamlit as st
 
 # ==================== CONFIGURATION ====================
 cfg = st.secrets["db"]
