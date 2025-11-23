@@ -1,0 +1,117 @@
+
+Current time: 2025-11-08 19:30:01 PST
+Looking for games from: 2025-11-07
+------------------------------------------------------------
+✓ Connected to database
+✓ Loaded 30 teams
+✓ Loaded 33 venues
+✓ Found 132 existing games in database
+
+Fetching games from NBA API for 2025-11-07...
+✓ API returned 423 total game records
+  Date range in API: 2025-10-02 to 2025-11-08
+  After filtering to 2025-11-07: 22 records
+  Games found: 11 (each game has 2 records)
+
+  Sample game IDs from API:
+    - 0022500030
+    - 0022500029
+    - 0022500032
+
+Processing games...
+  Processing API Game ID: 0022500028 -> DB Game ID: 22500028
+    ⏭️  Already in database
+  Processing API Game ID: 0022500029 -> DB Game ID: 22500029
+    ⏭️  Already in database
+  Processing API Game ID: 0022500030 -> DB Game ID: 22500030
+    ⏭️  Already in database
+  Processing API Game ID: 0022500031 -> DB Game ID: 22500031
+    ⏭️  Already in database
+  Processing API Game ID: 0022500032 -> DB Game ID: 22500032
+    ⏭️  Already in database
+  Processing API Game ID: 0022500033 -> DB Game ID: 22500033
+    ⏭️  Already in database
+  Processing API Game ID: 0022500034 -> DB Game ID: 22500034
+    ⏭️  Already in database
+  Processing API Game ID: 0022500035 -> DB Game ID: 22500035
+    ⏭️  Already in database
+  Processing API Game ID: 0022500036 -> DB Game ID: 22500036
+    ⏭️  Already in database
+  Processing API Game ID: 0022500037 -> DB Game ID: 22500037
+    ⏭️  Already in database
+  Processing API Game ID: 0022500038 -> DB Game ID: 22500038
+    ⏭️  Already in database
+
+✓ 0 games ready to insert
+  Skipped 11 duplicates
+  Skipped 0 for other reasons
+
+⚠️  No games to insert
+
+============================================================
+SUMMARY: Inserted 0 game(s) from 2025-11-07
+============================================================
+Current time: 2025-11-09 08:13:15 PST
+Looking for games from: 2025-11-08
+------------------------------------------------------------
+✓ Connected to database
+✓ Loaded 30 teams
+✓ Loaded 33 venues
+✓ Found 132 existing games in database
+
+Fetching games from NBA API for 2025-11-08...
+✓ API returned 425 total game records
+  Date range in API: 2025-10-02 to 2025-11-08
+  After filtering to 2025-11-08: 16 records
+  Games found: 8 (each game has 2 records)
+
+  Sample game IDs from API:
+    - 0022500189
+    - 0022500183
+    - 0022500188
+
+Processing games...
+  Processing API Game ID: 0022500183 -> DB Game ID: 22500183
+    DAL @ WAS
+    ✓ Ready to insert
+  Processing API Game ID: 0022500184 -> DB Game ID: 22500184
+    TOR @ PHI
+    ✓ Ready to insert
+  Processing API Game ID: 0022500185 -> DB Game ID: 22500185
+    LAL @ ATL
+    ✓ Ready to insert
+  Processing API Game ID: 0022500186 -> DB Game ID: 22500186
+    CHI @ CLE
+    ✓ Ready to insert
+  Processing API Game ID: 0022500187 -> DB Game ID: 22500187
+    POR @ MIA
+    ✓ Ready to insert
+  Processing API Game ID: 0022500188 -> DB Game ID: 22500188
+    NOP @ SAS
+    ✓ Ready to insert
+  Processing API Game ID: 0022500189 -> DB Game ID: 22500189
+    IND @ DEN
+    ✓ Ready to insert
+  Processing API Game ID: 0022500190 -> DB Game ID: 22500190
+    PHX @ LAC
+    ✓ Ready to insert
+
+✓ 8 games ready to insert
+  Skipped 0 duplicates
+  Skipped 0 for other reasons
+
+Inserting into database (using default venue ID: 1)...
+  ✓ Inserted game 22500183
+  ✓ Inserted game 22500184
+  ✓ Inserted game 22500185
+  ✓ Inserted game 22500186
+  ✓ Inserted game 22500187
+  ✓ Inserted game 22500188
+  ✓ Inserted game 22500189
+  ✓ Inserted game 22500190
+
+✓ Committed 8 games to database
+
+============================================================
+SUMMARY: Inserted 8 game(s) from 2025-11-08
+============================================================

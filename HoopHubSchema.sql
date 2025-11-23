@@ -1,0 +1,72 @@
+DROP DATABASE IF EXISTS HoopHub;
+CREATE DATABASE HoopHub;
+USE HoopHub;
+
+CREATE TABLE HeadCoach(
+    CoachID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    FirstName VARCHAR(30),
+    LastName VARCHAR(30)
+);
+
+CREATE TABLE Team(
+    TeamID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(30),
+    Abbreviation VARCHAR(3),
+    City VARCHAR(30),
+    State VARCHAR(30),
+    Conference VARCHAR(10),
+    Division VARCHAR(20),
+    CoachID INTEGER NOT NULL,
+    FOREIGN KEY (CoachID) REFERENCES HeadCoach(CoachID)
+);
+
+CREATE TABLE Player(
+    PlayerID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    TeamID INTEGER NOT NULL,
+    FirstName VARCHAR(20),
+    LastName VARCHAR(20),
+    Age INTEGER,
+    Position VARCHAR(20),
+    Number INTEGER,
+    HeightInches INTEGER,
+    WeightPounds INTEGER,
+    FOREIGN KEY (TeamID) REFERENCES Team(TeamID)
+);
+
+CREATE TABLE Venue(
+    VenueID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Name VARCHAR(30),
+    City VARCHAR(30),
+    State VARCHAR(30),
+    Capacity INTEGER
+);
+
+CREATE TABLE Game(
+    GameID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Date DATETIME,
+    HomeTeamID INTEGER NOT NULL,
+    AwayTeamID INTEGER NOT NULL,
+    VenueID INTEGER NOT NULL,
+    HomeTeamScore INTEGER,
+    AwayTeamScore INTEGER,
+    Attendance INTEGER,
+    FOREIGN KEY (HomeTeamID) REFERENCES Team(TeamID),
+    FOREIGN KEY (AwayTeamID) REFERENCES Team(TeamID),
+    FOREIGN KEY (VenueID) REFERENCES Venue(VenueID)
+);
+
+CREATE TABLE PlayerGameStats(
+    GameID INTEGER NOT NULL,
+    PlayerID INTEGER NOT NULL,
+    Points INTEGER,
+    Rebounds INTEGER,
+    Assists INTEGER,
+    Steals INTEGER,
+    Blocks INTEGER,
+    Turnovers INTEGER,
+    Fouls INTEGER,
+    Minutes INTEGER,
+    PRIMARY KEY (GameID, PlayerID),
+    FOREIGN KEY (GameID) REFERENCES Game(GameID),
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID)
+);
