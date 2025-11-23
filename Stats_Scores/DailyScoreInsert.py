@@ -13,6 +13,7 @@ import time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import streamlit as st
+import certifi
 
 # ==================== CONFIGURATION ====================
 cfg = st.secrets["db"]
