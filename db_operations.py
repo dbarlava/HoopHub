@@ -5,19 +5,62 @@ import streamlit as st
 class db_operations():
     # constructor with MySQL connection parameters (matches connector.py)
     # You can either pass your own connection or use default parameters
-    def __init__(self, connection=None, host="localhost", user="root", password="CPSC408!", database="HoopHub"):
+    from helper import helper
+import mysql.connector
+
+# allow import of streamlit if running in Streamlit Cloud
+try:
+    import streamlit as st
+except ImportError:
+    st = None
+
+    
+    def __init__(self, connection=None,
+                 host="localhost",
+                 user="root",
+                 password="CPSC408!",
+                 database="HoopHub",
+                 port=3306):
+    
         if connection is not None:
-            # Use provided connection (for flexibility)
+            # Use provided connection
             self.connection = connection
+    
         else:
-            # Create new connection using same pattern as connector.py
-            self.connection = mysql.connector.connect(
-                host=host,
-                user=user,
-                password=password,
-                auth_plugin='mysql_native_password',
-                database=database
-            )
+            # Default connection parameters for local development
+            conn_params = {
+                "host": host,
+                "user": user,
+                "password": password,
+                "database": database,
+                "port": port,
+                "auth_plugin": "mysql_native_password"
+            }
+    
+            # If running in Streamlit Cloud AND secrets are configured,
+            # override with Aiven cloud database credentials
+            try:
+                if st is not None and "mysql" in st.secrets:
+                    s = st.secrets["mysql"]
+    
+                    conn_params.update({
+                        "host": s["host"],
+                        "user": s["user"],
+                        "password": s["password"],
+                        "database": s["database"],
+                        "port": int(s.get("port", 3306)),
+                    })
+    
+                    # Aiven requires SSL enabled
+                    conn_params["ssl_disabled"] = False
+    
+            except Exception:
+                # If anything goes wrong with secrets, ignore and use local DB
+                pass
+    
+            # Connect with final connection settings
+            self.connection = mysql.connector.connect(**conn_params)
+    
         self.cursor = self.connection.cursor()
         print("connection made...")
 
@@ -425,4 +468,5 @@ class db_operations():
         WHERE Player.PlayerID = %s;
         """
         self.cursor.execute(query, (player_id,))
+
         return self.cursor.fetchone()
