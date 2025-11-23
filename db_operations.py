@@ -5,20 +5,23 @@ import streamlit as st
 class db_operations():
     # constructor with MySQL connection parameters (matches connector.py)
     # You can either pass your own connection or use default parameters
+    import mysql.connector
+import streamlit as st
+
+class db_operations():
     def __init__(self):
-        # Load DB credentials ONLY from Streamlit Secrets
+        # Load DB credentials from Streamlit secrets
         cfg = st.secrets["db"]
 
-        # Connect to Aiven MySQL
         self.connection = mysql.connector.connect(
             host=cfg["host"],
-            port=cfg["port"],
+            port=int(cfg["port"]),   # port is often stored as a string in secrets
             user=cfg["user"],
             password=cfg["password"],
             database=cfg["database"],
-            ssl_mode="REQUIRED",   
+            # Remove ssl_mode – mysql.connector doesn't support that kwarg
+            # If Aiven later requires cert-based SSL, we can add ssl_ca here.
         )
-
         self.cursor = self.connection.cursor()
         print("connection made...")
 
@@ -428,4 +431,5 @@ class db_operations():
         self.cursor.execute(query, (player_id,))
 
         return self.cursor.fetchone()
+
 
