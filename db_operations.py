@@ -176,7 +176,7 @@ class db_operations():
 
                 -- Losses
                 Losses
-            FROM vStandings
+            FROM vstandings
             WHERE Name = %s;
         """
         
@@ -349,7 +349,7 @@ class db_operations():
                 Wins,
                 Losses,
                 WinPercentage
-            FROM vStandings
+            FROM vstandings
             WHERE Conference = %s
             ORDER BY WinPercentage DESC;
         """
@@ -363,7 +363,7 @@ class db_operations():
                 Wins,
                 Losses,
                 WinPercentage
-            FROM vStandings
+            FROM vstandings
             ORDER BY WinPercentage DESC;
         """
         self.cursor.execute(query)
@@ -385,7 +385,7 @@ class db_operations():
                 Wins,
                 Losses,
                 WinPercentage
-            FROM vStandings
+            FROM vstandings
             WHERE Division = %s
             ORDER BY WinPercentage DESC;
         """
@@ -431,5 +431,6 @@ class db_operations():
         self.cursor.execute(query, (player_id,))
 
         return self.cursor.fetchone()
+
 
 
