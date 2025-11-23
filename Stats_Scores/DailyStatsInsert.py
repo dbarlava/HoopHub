@@ -14,11 +14,15 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 # ==================== CONFIGURATION ====================
+cfg = st.secrets["db"]
+
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'CPSC408!',
-    'database': 'HoopHub'
+    "host": cfg["host"],
+    "port": int(cfg["port"]),
+    "user": cfg["user"],
+    "password": cfg["password"],
+    "database": cfg["database"],
+    "ssl_ca": certifi.where(),  # Aiven requires SSL; this keeps Streamlit happy
 }
 
 SEASON = "2025-26"
