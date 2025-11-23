@@ -293,29 +293,41 @@ class db_operations():
         self.cursor.execute(query, (date,))
         return self.cursor.fetchall()
     
-    def get_boxscore(self, game_id):
-        query = """
-        SELECT
-            team.Name AS TeamName,
-            CONCAT(Player.FirstName, ' ', Player.LastName) AS PlayerName,
-            stats.Minutes AS Minutes,
-            stats.Points AS Points,
-            stats.Rebounds AS Rebounds,
-            stats.Assists AS Assists,
-            stats.Blocks AS Blocks,
-            stats.Steals AS Steals,
-            stats.Turnovers AS Turnovers,
-            stats.Fouls AS Fouls
-        FROM PlayerGameStats stats
-        INNER JOIN Player
-            ON stats.PlayerID = Player.PlayerID
-        INNER JOIN Team
-            ON Player.TeamID = Team.TeamID
-        WHERE stats.GameID = %s 
-        ORDER BY Team.Name, stats.Minutes DESC;
+    def get_boxscore(self, game_id: int):
         """
-        self.cursor.execute(query, (game_id,))
-        return self.cursor.fetchall()
+        Return per-player boxscore for a given game_id.
+    
+        Rows come back as:
+          (TeamName, PlayerName, Minutes, Points, Rebounds, Assists,
+           Blocks, Steals, Turnovers, Fouls)
+        """
+        query = """
+            SELECT
+                t.Name AS TeamName,
+                CONCAT(p.FirstName, ' ', p.LastName) AS PlayerName,
+                s.Minutes AS Minutes,
+                s.Points AS Points,
+                s.Rebounds AS Rebounds,
+                s.Assists AS Assists,
+                s.Blocks AS Blocks,
+                s.Steals AS Steals,
+                s.Turnovers AS Turnovers,
+                s.Fouls AS Fouls
+            FROM PlayerGameStats AS s
+            INNER JOIN Player AS p
+                ON s.PlayerID = p.PlayerID
+            INNER JOIN Team AS t
+                ON p.TeamID = t.TeamID
+            WHERE s.GameID = %s
+            ORDER BY t.Name, s.Minutes DESC;
+        """
+        try:
+            self.cursor.execute(query, (game_id,))
+            return self.cursor.fetchall()
+        except mysql.connector.Error as e:
+            # TEMP: helps debug on Streamlit Cloud
+            print(f"Error in get_boxscore for GameID {game_id}: {e}")
+            return []
 
     # includes all teams and free agent team to be able to add a free agent to the database
     def get_teams(self):
@@ -431,6 +443,7 @@ class db_operations():
         self.cursor.execute(query, (player_id,))
 
         return self.cursor.fetchone()
+
 
 
 
