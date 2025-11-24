@@ -444,6 +444,100 @@ class db_operations():
 
         return self.cursor.fetchone()
 
+    def get_players(self):
+        query = """
+        SELECT CONCAT(FirstName, ' ', LastName) AS Name
+        FROM Player
+        ORDER BY Name ASC;
+        """
+        self.cursor.execute(query)
+        players = self.cursor.fetchall()
+        return [player[0] for player in players]
+    
+    def change_player_team(self, player_name, team_name):
+        query = """
+        UPDATE Player
+        SET TeamID = (SELECT TeamID FROM Team WHERE Name = %s)
+        WHERE CONCAT(FirstName, ' ', LastName) = %s;
+        """
+        self.cursor.execute(query, (team_name, player_name))
+        self.connection.commit()
+        return True
+    
+    def change_player_age(self, player_name, age):
+        query = """
+        UPDATE Player
+        SET Age = %s
+        WHERE CONCAT(FirstName, ' ', LastName) = %s;
+        """
+        self.cursor.execute(query, (age, player_name))
+        self.connection.commit()
+        return True
+    
+    def get_positions(self):
+        query = """
+        SELECT DISTINCT Position
+        FROM Player
+        WHERE Position IS NOT NULL
+        ORDER BY Position ASC;
+        """
+        self.cursor.execute(query)
+        positions = self.cursor.fetchall()
+        return [position[0] for position in positions]
+
+    def change_player_position(self, player_name, position):
+        query = """
+        UPDATE Player
+        SET Position = %s
+        WHERE CONCAT(FirstName, ' ', LastName) = %s;
+        """
+        self.cursor.execute(query, (position, player_name))
+        self.connection.commit()
+        return True
+    
+    def change_player_number(self, player_name, number):
+        query = """
+        UPDATE Player
+        SET Number = %s
+        WHERE CONCAT(FirstName, ' ', LastName) = %s;
+        """
+        self.cursor.execute(query, (number, player_name))
+        self.connection.commit()
+        return True
+    
+    def change_player_height(self, player_name, height):
+        query = """
+        UPDATE Player
+        SET HeightInches = %s
+        WHERE CONCAT(FirstName, ' ', LastName) = %s;
+        """
+        self.cursor.execute(query, (height, player_name))
+        self.connection.commit()
+        return True
+    
+    def change_player_weight(self, player_name, weight):
+        query = """
+        UPDATE Player
+        SET WeightPounds = %s
+        WHERE CONCAT(FirstName, ' ', LastName) = %s;
+        """
+        self.cursor.execute(query, (weight, player_name))
+        self.connection.commit()
+        return True
+    
+    def delete_player(self, player_name):
+        delete_stats_query = """
+        DELETE FROM PlayerGameStats
+        WHERE PlayerID = (SELECT PlayerID FROM Player WHERE CONCAT(FirstName, ' ', LastName) = %s);
+        """
+        delete_player_query = """
+        DELETE FROM Player
+        WHERE CONCAT(FirstName, ' ', LastName) = %s;
+        """
+        self.cursor.execute(delete_stats_query, (player_name,))
+        self.cursor.execute(delete_player_query, (player_name,))
+        self.connection.commit()
+        return True
 
 
 
