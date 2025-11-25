@@ -538,6 +538,68 @@ class db_operations():
         self.cursor.execute(delete_player_query, (player_name,))
         self.connection.commit()
         return True
+    def get_player_team_performance(self, player_name, team_name):
+        query = """
+        SELECT
+            COUNT(*) AS GamesPlayed,
+            AVG(PlayerGameStats.Points) AS Points,
+            AVG(PlayerGameStats.Rebounds) AS Rebounds,
+            AVG(PlayerGameStats.Assists) AS Assists,
+            AVG(PlayerGameStats.Blocks) AS Blocks,
+            AVG(PlayerGameStats.Steals) AS Steals,
+            AVG(PlayerGameStats.Turnovers) AS Turnovers,
+            AVG(PlayerGameStats.Fouls) AS Fouls
+        FROM PlayerGameStats
+        INNER JOIN Player
+            ON PlayerGameStats.PlayerID = Player.PlayerID
+        INNER JOIN Game
+            ON PlayerGameStats.GameID = Game.GameID
+        WHERE (CONCAT(Player.FirstName, ' ', Player.LastName) = %s AND Game.HomeTeamID = (SELECT TeamID FROM Team WHERE Name = %s) AND Game.AwayTeamID = Player.TeamID)
+        OR (CONCAT(Player.FirstName, ' ', Player.LastName) = %s AND Game.AwayTeamID = (SELECT TeamID FROM Team WHERE Name = %s) AND Game.HomeTeamID = Player.TeamID);
+        """
+        self.cursor.execute(query, (player_name, team_name, player_name, team_name))
+        return self.cursor.fetchone()
+    
+    def get_player_performance(self, player1_name, player2_name):
+        query = """
+        SELECT
+            COUNT(*) AS GamesPlayed,
+            AVG(PlayerGameStats.Points) AS Points,
+            AVG(PlayerGameStats.Rebounds) AS Rebounds,
+            AVG(PlayerGameStats.Assists) AS Assists,
+            AVG(PlayerGameStats.Blocks) AS Blocks,
+            AVG(PlayerGameStats.Steals) AS Steals,
+            AVG(PlayerGameStats.Turnovers) AS Turnovers,
+            AVG(PlayerGameStats.Fouls) AS Fouls
+        FROM PlayerGameStats
+        INNER JOIN Player
+            ON PlayerGameStats.PlayerID = Player.PlayerID
+        INNER JOIN Game
+            ON PlayerGameStats.GameID = Game.GameID
+        WHERE (CONCAT(Player.FirstName, ' ', Player.LastName) = %s AND Game.HomeTeamID = Player.TeamID AND Game.AwayTeamID = (SELECT TeamID FROM Player WHERE CONCAT(FirstName, ' ', LastName) = %s))
+        OR (CONCAT(Player.FirstName, ' ', Player.LastName) = %s AND Game.AwayTeamID = Player.TeamID AND Game.HomeTeamID = (SELECT TeamID FROM Player WHERE CONCAT(FirstName, ' ', LastName) = %s));
+        """
+        self.cursor.execute(query, (player1_name, player2_name, player1_name, player2_name))
+        return self.cursor.fetchone()
+    
+    def get_player_stats(self, player_name):
+        query = """
+        SELECT
+            COUNT(*) AS GamesPlayed,
+            AVG(PlayerGameStats.Points) AS Points,
+            AVG(PlayerGameStats.Rebounds) AS Rebounds,
+            AVG(PlayerGameStats.Assists) AS Assists,
+            AVG(PlayerGameStats.Blocks) AS Blocks,
+            AVG(PlayerGameStats.Steals) AS Steals,
+            AVG(PlayerGameStats.Turnovers) AS Turnovers,
+            AVG(PlayerGameStats.Fouls) AS Fouls
+        FROM PlayerGameStats
+        INNER JOIN Player 
+            ON PlayerGameStats.PlayerID = Player.PlayerID
+        WHERE CONCAT(Player.FirstName, ' ', Player.LastName) = %s;
+        """
+        self.cursor.execute(query, (player_name,))
+        return self.cursor.fetchone()
 
 
 
