@@ -26,7 +26,7 @@ with st.expander("Compare Player Performance Against Another Team"):
             st.write(f"Turnovers: {player_team_performance[6]:.1f}")
             st.write(f"Fouls: {player_team_performance[7]:.1f}")
         else:
-            st.warning(f"{player_name} has not played against {team_name} this season.")
+            st.error(f"{player_name} has not played against {team_name} this season.")
     else:
         st.warning("A player and a team must be selected to compare performance.")
 
@@ -229,6 +229,7 @@ with st.expander("Compare Player Performance to Another Player"):
                     else:
                         st.subheader(f"Fouls: {player2_performance[7]:.1f}")
         else:
-            st.warning(f"{player1_name} and {player2_name} have not played against each other this season.")
+            st.error(f"{player1_name} and {player2_name} have not played against each other this season.")
     else:
         st.warning("Two players must be selected to compare performance.")
+
