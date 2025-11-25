@@ -239,7 +239,7 @@ class db_operations():
         self.cursor.execute(query, (team_name, opponent_name))
         return self.cursor.fetchone()
     
-    def get_all_teams(self, team_name):
+    def get_all_teams(self, team_name = ""):
         query = """
         SELECT Name
         FROM Team
@@ -600,6 +600,7 @@ class db_operations():
         """
         self.cursor.execute(query, (player_name,))
         return self.cursor.fetchone()
+
 
 
 
