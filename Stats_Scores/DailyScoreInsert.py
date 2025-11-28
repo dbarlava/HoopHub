@@ -38,7 +38,7 @@ API_TIMEOUT = 15
 now = datetime.now(TIMEZONE)
 
 # Calculate yesterday's date
-yesterday = now - timedelta(days=2)
+yesterday = now - timedelta(days=1)
 yesterday_str = yesterday.strftime("%Y-%m-%d")
 
 print(f"Current time: {now.strftime('%Y-%m-%d %H:%M:%S %Z')}")
