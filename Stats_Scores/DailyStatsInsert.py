@@ -32,7 +32,7 @@ TIMEZONE = ZoneInfo("America/Los_Angeles")
 
 # ==================== SETUP ====================
 now = datetime.now(TIMEZONE)
-yesterday = now - timedelta(days=2)
+yesterday = now - timedelta(days=1)
 yesterday_str = yesterday.strftime("%Y-%m-%d")
 
 # ==================== CONNECT TO DATABASE ====================
