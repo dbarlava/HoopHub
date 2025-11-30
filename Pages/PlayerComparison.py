@@ -74,15 +74,15 @@ with st.expander("Compare Player Performance to Another Player"):
                     st.subheader(f"Steals: :red[{player1_performance[5]:.1f}]")
                 else:
                     st.subheader(f"Steals: {player1_performance[5]:.1f}")
-                if player1_performance[6] > player2_performance[6]:
+                if player1_performance[6] < player2_performance[6]:
                     st.subheader(f"Turnovers: :green[{player1_performance[6]:.1f}]")
-                elif player1_performance[6] < player2_performance[6]:
+                elif player1_performance[6] > player2_performance[6]:
                     st.subheader(f"Turnovers: :red[{player1_performance[6]:.1f}]")
                 else:
                     st.subheader(f"Turnovers: {player1_performance[6]:.1f}")
-                if player1_performance[7] > player2_performance[7]:
+                if player1_performance[7] < player2_performance[7]:
                     st.subheader(f"Fouls: :green[{player1_performance[7]:.1f}]")
-                elif player1_performance[7] < player2_performance[7]:
+                elif player1_performance[7] > player2_performance[7]:
                     st.subheader(f"Fouls: :red[{player1_performance[7]:.1f}]")
                 else:
                     st.subheader(f"Fouls: {player1_performance[7]:.1f}")
@@ -120,15 +120,15 @@ with st.expander("Compare Player Performance to Another Player"):
                     st.subheader(f"Steals: :red[{player2_performance[5]:.1f}]")
                 else:
                     st.subheader(f"Steals: {player2_performance[5]:.1f}")
-                if player2_performance[6] > player1_performance[6]:
+                if player2_performance[6] < player1_performance[6]:
                     st.subheader(f"Turnovers: :green[{player2_performance[6]:.1f}]")
-                elif player2_performance[6] < player1_performance[6]:
+                elif player2_performance[6] > player1_performance[6]:
                     st.subheader(f"Turnovers: :red[{player2_performance[6]:.1f}]")
                 else:
                     st.subheader(f"Turnovers: {player2_performance[6]:.1f}")
-                if player2_performance[7] > player1_performance[7]:
+                if player2_performance[7] < player1_performance[7]:
                     st.subheader(f"Fouls: :green[{player2_performance[7]:.1f}]")
-                elif player2_performance[7] < player1_performance[7]:
+                elif player2_performance[7] > player1_performance[7]:
                     st.subheader(f"Fouls: :red[{player2_performance[7]:.1f}]")
                 else:
                     st.subheader(f"Fouls: {player2_performance[7]:.1f}")
@@ -171,15 +171,15 @@ with st.expander("Compare Player Performance to Another Player"):
                         st.subheader(f"Steals: :red[{player1_performance[5]:.1f}]")
                     else:
                         st.subheader(f"Steals: {player1_performance[5]:.1f}")
-                    if player1_performance[6] > player2_performance[6]:
+                    if player1_performance[6] < player2_performance[6]:
                         st.subheader(f"Turnovers: :green[{player1_performance[6]:.1f}]")
-                    elif player1_performance[6] < player2_performance[6]:
+                    elif player1_performance[6] > player2_performance[6]:
                         st.subheader(f"Turnovers: :red[{player1_performance[6]:.1f}]")
                     else:
                         st.subheader(f"Turnovers: {player1_performance[6]:.1f}")
-                    if player1_performance[7] > player2_performance[7]:
+                    if player1_performance[7] < player2_performance[7]:
                         st.subheader(f"Fouls: :green[{player1_performance[7]:.1f}]")
-                    elif player1_performance[7] < player2_performance[7]:
+                    elif player1_performance[7] > player2_performance[7]:
                         st.subheader(f"Fouls: :red[{player1_performance[7]:.1f}]")
                     else:
                         st.subheader(f"Fouls: {player1_performance[7]:.1f}")
@@ -216,15 +216,15 @@ with st.expander("Compare Player Performance to Another Player"):
                         st.subheader(f"Steals: :red[{player2_performance[5]:.1f}]")
                     else:
                         st.subheader(f"Steals: {player2_performance[5]:.1f}")
-                    if player1_performance[6] < player2_performance[6]:
+                    if player1_performance[6] > player2_performance[6]:
                         st.subheader(f"Turnovers: :green[{player2_performance[6]:.1f}]")
-                    elif player1_performance[6] > player2_performance[6]:
+                    elif player1_performance[6] < player2_performance[6]:
                         st.subheader(f"Turnovers: :red[{player2_performance[6]:.1f}]")
                     else:
                         st.subheader(f"Turnovers: {player2_performance[6]:.1f}")
-                    if player1_performance[7] < player2_performance[7]:
+                    if player1_performance[7] > player2_performance[7]:
                         st.subheader(f"Fouls: :green[{player2_performance[7]:.1f}]")
-                    elif player1_performance[7] > player2_performance[7]:
+                    elif player1_performance[7] < player2_performance[7]:
                         st.subheader(f"Fouls: :red[{player2_performance[7]:.1f}]")
                     else:
                         st.subheader(f"Fouls: {player2_performance[7]:.1f}")
@@ -232,4 +232,5 @@ with st.expander("Compare Player Performance to Another Player"):
             st.error(f"{player1_name} and {player2_name} have not played against each other this season.")
     else:
         st.warning("Two players must be selected to compare performance.")
+
 
