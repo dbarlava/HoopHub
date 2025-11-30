@@ -13,7 +13,6 @@ st.subheader("Welcome to HoopHub")
 
 st.write("""
 HoopHub is your NBA dashboard for exploring teams, players, and game results.
-It connects directly to your MySQL database and stays updated through the NBA API.
 """)
 
 st.divider()
@@ -21,11 +20,12 @@ st.divider()
 st.subheader("How to Use HoopHub")
 
 st.write("""
-1. **Teams Page** - Browse all NBA teams, view rosters, and check recent games, and other cool stats.  
-2. **Players Page** - Look up any active player and view their bio, stats, and team.  
+1. **Games Page** - See all games played so far this season.
+2. **Teams Page** - Browse all NBA teams, view rosters, and check recent games, and other cool stats.  
 3. **Standings Page** - See league, conference, or division standings.
-4. **Games Page** - See all games played so far this season.
-4. **Admin Page** - (Restricted Access) Update scores and player stats using the NBA API.
+4. **Players Page** - Look up any active player and view their bio, stats, and team.
+5. **Player Comparison Page** - Compare a players stats against another team or another players stats.
+6. **Admin Page** - Update scores and player stats using the NBA API and add or remove players from the database.
 """)
 
 st.divider()
